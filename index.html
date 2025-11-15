@@ -17,8 +17,11 @@
     </video>
     <div>
       <h1>🎉 Happy 20th Birthday, Sis! 🎂</h1>
-      <p>Wishing you a day filled with love, laughter, and endless joy 💖</p>
-    </div>
+     <p>
+  <span id="typedText"></span>
+  <span class="cursor">|</span>
+</p>
+
   </header>
 
   <!-- GALLERY -->
@@ -60,9 +63,17 @@
     </div>
   </section>
   
-  <section>
-    <h2>WISHES FROM FRIENDS AND FAMILIES</h2>
-  </section>
+ <section>
+  <h2>WISHES FROM FRIENDS AND FAMILIES</h2>
+
+  <div class="wish-input">
+    <input type="text" id="wishText" placeholder="Type your birthday wish..." />
+    <button id="wishBtn">Send 💌</button>
+  </div>
+
+  <div id="wishList" class="wish-list"></div>
+</section>
+
   <!-- FOOTER -->
   <footer>
     Made with 💕 for my amazing sister | © 2025

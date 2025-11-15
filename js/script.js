@@ -1,25 +1,48 @@
-// CONFETTI EFFECT
-const confettiCanvas = document.getElementById("confetti");
-const confettiCtx = confettiCanvas.getContext("2d");
-confettiCanvas.width = window.innerWidth;
-confettiCanvas.height = window.innerHeight;
+document.addEventListener("DOMContentLoaded", () => {
+  const text = "Wishing you a day filled with love, laughter, and endless joy 💖";
+  const output = document.getElementById("typedText");
+  let i = 0;
 
-const confettiPieces = Array.from({ length: 100 }, () => ({
+  function type() {
+    if (i < text.length) {
+      output.textContent += text[i];
+      i++;
+      setTimeout(type, 50); // adjust typing speed here
+    }
+  }
+
+  type();
+}); 
+// ======= CONFETTI EFFECT (Optimized & Smoother) =======
+const confettiCanvas = document.getElementById("confetti");
+const ctx = confettiCanvas.getContext("2d");
+
+function resizeConfetti() {
+  confettiCanvas.width = window.innerWidth;
+  confettiCanvas.height = window.innerHeight;
+}
+resizeConfetti();
+window.addEventListener("resize", resizeConfetti);
+
+const confettiPieces = Array.from({ length: 150 }, () => ({
   x: Math.random() * confettiCanvas.width,
   y: Math.random() * confettiCanvas.height,
-  r: Math.random() * 6 + 2,
-  dx: Math.random() - 0.5,
+  r: Math.random() * 5 + 2,
+  dx: (Math.random() - 0.5) * 1.5,
   dy: Math.random() * 2 + 1,
-  color: `hsl(${Math.random() * 360}, 100%, 70%)`
+  tilt: Math.random() * 10,
+  tiltAngle: Math.random() * 0.1,
+  color: `hsl(${Math.random() * 360},100%,70%)`
 }));
 
 function drawConfetti() {
-  confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+  ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+
   confettiPieces.forEach(p => {
-    confettiCtx.beginPath();
-    confettiCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    confettiCtx.fillStyle = p.color;
-    confettiCtx.fill();
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = p.color;
+    ctx.fill();
   });
 }
 
@@ -27,20 +50,28 @@ function updateConfetti() {
   confettiPieces.forEach(p => {
     p.x += p.dx;
     p.y += p.dy;
-    if (p.y > confettiCanvas.height) p.y = -10;
+    p.tiltAngle += 0.02;
+    p.tilt = Math.sin(p.tiltAngle) * 5;
+
+    if (p.y > confettiCanvas.height || p.x < 0 || p.x > confettiCanvas.width) {
+      p.x = Math.random() * confettiCanvas.width;
+      p.y = -10;
+    }
   });
 }
 
-function animateConfetti() {
+function animate() {
   drawConfetti();
   updateConfetti();
-  requestAnimationFrame(animateConfetti);
+  requestAnimationFrame(animate);
 }
-animateConfetti();
+animate();
 
-// AUDIO CONTROL
+
+// ======= AUDIO CONTROL (Cleaner) =======
 const audio = document.getElementById("birthdayAudio");
 const btn = document.getElementById("audioBtn");
+
 btn.addEventListener("click", () => {
   if (audio.paused) {
     audio.play();
@@ -50,3 +81,23 @@ btn.addEventListener("click", () => {
     btn.textContent = "🔇";
   }
 });
+ const wishInput = document.getElementById("wishText");
+  const wishBtn = document.getElementById("wishBtn");
+  const wishList = document.getElementById("wishList");
+
+  wishBtn.addEventListener("click", addWish);
+  wishInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") addWish();
+  });
+
+  function addWish() {
+    const text = wishInput.value.trim();
+    if (text === "") return;
+
+    const div = document.createElement("div");
+    div.className = "wish-item";
+    div.textContent = text;
+
+    wishList.prepend(div); // newest wishes appear first
+    wishInput.value = "";
+  }
