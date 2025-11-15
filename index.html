@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday Sis 🎉</title>
   <link rel="stylesheet" href="css/styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;600&display=swap"
+    rel="stylesheet">
 </head>
+
 <body>
-  <!-- HERO SECTION -->
   <header>
     <video autoplay muted loop playsinline>
       <source src="video/VID-20250922-WA0003.mp4" type="video/mp4">
@@ -17,15 +18,14 @@
     </video>
     <div>
       <h1>🎉 Happy 20th Birthday, Sis! 🎂</h1>
-     <p>
-  <span id="typedText"></span>
-  <span class="cursor">|</span>
-</p>
-
+      <p>
+        <span id="typedText"></span>
+        <span class="cursor">|</span>
+      </p>
+    </div>
   </header>
 
-  <!-- GALLERY -->
-   <section>
+  <section>
     <h2>CHILDHOOD MEMORIES GALLERY</h2>
     <div class="gallery">
       <img src="img/ch1.jpg" alt="">
@@ -39,13 +39,13 @@
       <img src="img/ch9.jpg" alt="">
     </div>
   </section>
+
   <section>
-   <!-- AUDIO PLAYER (FLOATING BUTTON) -->
     <div class="audio-player">
-    <button id="audioBtn">🔊</button>
-    <audio id="birthdayAudio" autoplay loop>
+      <button id="audioBtn">🔊</button>
+      <audio id="birthdayAudio" autoplay loop>
         <source src="audio/happy-birthday-258264.mp3" type="audio/mpeg">
-    </audio>
+      </audio>
     </div>
 
     <h2>GALLERY</h2>
@@ -62,25 +62,22 @@
       <img src="img/BJ6.jpg" alt="">
     </div>
   </section>
-  
- <section>
-  <h2>WISHES FROM FRIENDS AND FAMILIES</h2>
 
-  <div class="wish-input">
-    <input type="text" id="wishText" placeholder="Type your birthday wish..." />
-    <button id="wishBtn">Send 💌</button>
-  </div>
+  <section>
+    <h2>WISHES FROM FRIENDS AND FAMILIES</h2>
+    <div class="wish-input">
+      <input type="text" id="wishText" placeholder="Type your birthday wish..." />
+      <button id="wishBtn">Send 💌</button>
+    </div>
+    <div id="wishList" class="wish-list"></div>
+  </section>
 
-  <div id="wishList" class="wish-list"></div>
-</section>
-
-  <!-- FOOTER -->
   <footer>
     Made with 💕 for my amazing sister | © 2025
   </footer>
 
-  <!-- CONFETTI SCRIPT -->
   <canvas id="confetti"></canvas>
-    <script src="js/script.js"></script>
+  <script src="js/script.js"></script>
 </body>
+
 </html>

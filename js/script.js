@@ -1,3 +1,4 @@
+// ======= TYPING EFFECT =======
 document.addEventListener("DOMContentLoaded", () => {
   const text = "Wishing you a day filled with love, laughter, and endless joy 💖";
   const output = document.getElementById("typedText");
@@ -7,13 +8,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (i < text.length) {
       output.textContent += text[i];
       i++;
-      setTimeout(type, 50); // adjust typing speed here
+      setTimeout(type, 50);
     }
   }
-
   type();
-}); 
-// ======= CONFETTI EFFECT (Optimized & Smoother) =======
+});
+
+// ======= CONFETTI EFFECT =======
 const confettiCanvas = document.getElementById("confetti");
 const ctx = confettiCanvas.getContext("2d");
 
@@ -37,7 +38,6 @@ const confettiPieces = Array.from({ length: 150 }, () => ({
 
 function drawConfetti() {
   ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-
   confettiPieces.forEach(p => {
     ctx.beginPath();
     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
@@ -60,15 +60,14 @@ function updateConfetti() {
   });
 }
 
-function animate() {
+function animateConfetti() {
   drawConfetti();
   updateConfetti();
-  requestAnimationFrame(animate);
+  requestAnimationFrame(animateConfetti);
 }
-animate();
+animateConfetti();
 
-
-// ======= AUDIO CONTROL (Cleaner) =======
+// ======= AUDIO CONTROL =======
 const audio = document.getElementById("birthdayAudio");
 const btn = document.getElementById("audioBtn");
 
@@ -81,23 +80,36 @@ btn.addEventListener("click", () => {
     btn.textContent = "🔇";
   }
 });
- const wishInput = document.getElementById("wishText");
-  const wishBtn = document.getElementById("wishBtn");
-  const wishList = document.getElementById("wishList");
 
-  wishBtn.addEventListener("click", addWish);
-  wishInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") addWish();
-  });
+// ======= WISHES WITH LOCAL STORAGE =======
+const wishInput = document.getElementById("wishText");
+const wishBtn = document.getElementById("wishBtn");
+const wishList = document.getElementById("wishList");
 
-  function addWish() {
-    const text = wishInput.value.trim();
-    if (text === "") return;
+// Load saved wishes from localStorage
+const savedWishes = JSON.parse(localStorage.getItem("birthdayWishes")) || [];
+savedWishes.forEach(text => addWishToDOM(text));
 
-    const div = document.createElement("div");
-    div.className = "wish-item";
-    div.textContent = text;
+wishBtn.addEventListener("click", addWish);
+wishInput.addEventListener("keypress", (e) => { if (e.key === "Enter") addWish(); });
 
-    wishList.prepend(div); // newest wishes appear first
-    wishInput.value = "";
-  }
+function addWish() {
+  const text = wishInput.value.trim();
+  if (!text) return;
+
+  // Add to DOM
+  addWishToDOM(text);
+
+  // Save to localStorage
+  savedWishes.unshift(text); // newest first
+  localStorage.setItem("birthdayWishes", JSON.stringify(savedWishes));
+
+  wishInput.value = "";
+}
+
+function addWishToDOM(text) {
+  const div = document.createElement("div");
+  div.className = "wish-item";
+  div.textContent = text;
+  wishList.prepend(div);
+}
